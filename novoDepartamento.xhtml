@@ -11,20 +11,20 @@
 
 				<p:growl id="growl" showDetail="true" sticky="true" />
 
-				<p:panel id="panel" header="Cadastro de Departamentos" toggleable="true" style="font-size:16px">
+				<p:panel id="panel" header="Cadastro de Departamentos" toggleable="true">
 
 					<p:messages id="msgs" autoUpdate="true"/>
 
-					<p:panelGrid columns="3" style="font-size:12px">
+					<p:panelGrid columns="3">
 					
-						<p:outputLabel value="Nome:"/>
+						<p:outputLabel value="Nome:" for="nome"/>
 						<p:inputText id="nome" value="#{departamentoMBean.departamento.nome}" required="true" requiredMessage="O campo nome é obrigatório" validatorMessage="O nome do departamento deve ter entre 2 e 60 caractéres">
 							<f:validateLength minimum="2" maximum="60"/>
 						</p:inputText>
 						
 						<p:message id="defaultMessage1" for="nome" display="icon"/>
 
-						<p:outputLabel value="Andar:"/>
+						<p:outputLabel value="Andar:" for="andar"/>
 						<p:selectOneMenu id="andar" value="#{departamentoMBean.departamento.andar}" required="true" requiredMessage="É necessário selecionar um andar" style="width:120px">
 							<f:selectItem itemLabel="" itemValue="" />
 							<f:selectItems value="#{selectOneMenuMBean.tipoAndarLabels}"/>
@@ -33,7 +33,7 @@
 						
 					</p:panelGrid>
 
-					<p:panelGrid columns="1" style="font-size:12px">
+					<p:panelGrid columns="1">
 					
 						<p:spacer height="25"/>
 						
