@@ -7,39 +7,41 @@
 
 		<ui:define name="conteudo">
 
-			<h:form id="departamento" style="font-family:Verdana">
+			<h:form id="departamento">
 
 				<p:growl id="growl" showDetail="true" sticky="true" />
 
-				<p:panel id="panel" header="Cadastro de Departamentos" toggleable="true">
+				<p:panel id="panel" header="Cadastro de Departamentos" toggleable="true" align="center" style="text-align:center">
 
 					<p:messages id="msgs" autoUpdate="true"/>
 
-					<p:panelGrid columns="3">
+					<div class="ui-fluid">
 					
-						<p:outputLabel value="Nome:" for="nome"/>
-						<p:inputText id="nome" value="#{departamentoMBean.departamento.nome}" required="true" requiredMessage="O campo nome é obrigatório" validatorMessage="O nome do departamento deve ter entre 2 e 60 caractéres">
-							<f:validateLength minimum="2" maximum="60"/>
-						</p:inputText>
+						<p:panelGrid columns="4" layout="grid" 
+								columnClasses="ui-grid-col-2, ui-grid-col-4 ,ui-grid-col-2, ui-grid-col-4"
+								styleClass="panelgrid-noborder">
 						
-						<p:message id="defaultMessage1" for="nome" display="icon"/>
-
-						<p:outputLabel value="Andar:" for="andar"/>
-						<p:selectOneMenu id="andar" value="#{departamentoMBean.departamento.andar}" required="true" requiredMessage="É necessário selecionar um andar" style="width:120px">
-							<f:selectItem itemLabel="" itemValue="" />
-							<f:selectItems value="#{selectOneMenuMBean.tipoAndarLabels}"/>
-						</p:selectOneMenu>
-						<p:message id="defaultMessage2" for="andar" display="icon"/>
+							<p:outputLabel value="Nome:" for="nome"/>
+							<p:inputText id="nome" value="#{departamentoMBean.departamento.nome}" required="true" requiredMessage="O campo nome é obrigatório" validatorMessage="O nome do departamento deve ter entre 2 e 60 caractéres"
+													style="width:80%">
+								<f:validateLength minimum="2" maximum="60"/>
+							</p:inputText>
+							
+							<p:outputLabel value="Andar:" for="andar"/>
+							<p:selectOneMenu id="andar" value="#{departamentoMBean.departamento.andar}" required="true" requiredMessage="É necessário selecionar um andar" style="width:80%">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems value="#{selectOneMenuMBean.tipoAndarLabels}"/>
+							</p:selectOneMenu>
+							
+							<p:outputLabel  />
+							<p:outputLabel  />
+							<p:outputLabel  />
+							<p:commandButton value="Salvar" title="Salvar departametno" icon="fa fa-floppy-o" action="#{departamentoMBean.salvar()}" style="width:80%" update="panel" />
+							
+						</p:panelGrid>
 						
-					</p:panelGrid>
-
-					<p:panelGrid columns="1">
-					
-						<p:spacer height="25"/>
-						
-						<p:commandButton value="Salvar" title="Salvar departametno" icon="fa fa-floppy-o" action="#{departamentoMBean.salvar()}" style="width:100px" update="panel" />
-					</p:panelGrid>
-
+				   </div>
+				   
 				</p:panel>
 
 			</h:form>
