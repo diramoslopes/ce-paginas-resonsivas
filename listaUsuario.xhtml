@@ -1,0 +1,124 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      template="/WEB-INF/templates/Layout.xhtml">
+
+	<h:head>
+		<script type="text/javascript">
+			function handleEdita(xhr, status, args) {
+				if (!args.validationFailed) {
+					editaUsuarioDialog.hide();
+				}
+			}
+		</script>
+	</h:head>
+
+	<ui:define name="conteudo">
+
+		<h:form id="form01Id" style="font-family:Verdana">
+
+			<p:panel id="panel01Id" header="Lista de Usuários" toggleable="true" style="font-size:16px">
+			
+				<p:toolbar style="margin: 10px 0;">
+				
+					<p:toolbarGroup align="right">
+						<p:commandButton value="Novo usuario" action="#{usuarioMBean.novo()}"/>
+					</p:toolbarGroup>
+				
+				</p:toolbar>
+			
+			  	<p:dataTable id="dataTable01Id" var="usuario" value="#{usuarioMBean.usuarios}" filteredValue="#{usuarioMBean.usuariosFiltrados}" widgetVar="usuarioTable" paginator="true" paginatorPosition="bottom" rows="15" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" style="font-size:12px" >
+			     	<p:column id="nomeColumnId" headerText="Nome" filterBy="#{usuario.funcionario.nome}" >
+			         <h:outputText value="#{usuario.funcionario.nome}" />
+			    	</p:column>
+			     	<p:column id="loginColumnId" headerText="Login" filterBy="#{usuario.login}" >
+			         <h:outputText value="#{usuario.login}" />
+			     	</p:column>
+			     	<p:column id="opcoesColumnId" headerText="Opções" style="width:75px">
+			         <p:commandButton id="selectButtonId" update=":form02Id:display01Id" oncomplete="editaUsuarioDialog.show()" icon="fa fa-pencil" title="Editar" style="width:25px">
+		               <f:setPropertyActionListener value="#{usuario}" target="#{usuarioMBean.usuario}" />
+		          	</p:commandButton>
+		           	<p:commandButton id="deleteButtonId" update=":form01Id:dataTable01Id" icon="fa fa-trash" title="Excluir" onclick="dlg1.show()" style="width:25px">
+		            	<f:setPropertyActionListener value="#{usuario}" target="#{usuarioMBean.usuario}" />
+		           	</p:commandButton>
+			     	</p:column>
+			     	<f:facet name="footer">
+			  			Total de #{fn:length(usuarioMBean.usuarios)} registro(s).
+			  		</f:facet>
+			  	</p:dataTable>
+			  	<h:panelGrid columns="1">
+					<p:spacer height="25"></p:spacer>
+			  		<p:commandButton id="novo" value="Novo" actionListener="#{usuarioMBean.novo}" oncomplete="novoUsuarioDialog.show()" title="Novo" style="width:100px;" icon="ui-icon ui-icon-disk"/>
+			  	</h:panelGrid>
+			</p:panel>
+
+		</h:form>
+
+		<p:dialog header="Editar Usuário" widgetVar="editaUsuarioDialog" resizable="false" id="editaUsuarioDlgId" showEffect="fade" hideEffect="fade" width="800" position="center" style="font-size:16px">
+			<h:form id="form02Id">
+				<p:panel id="panel02Id">
+					<p:messages id="msgs2" autoUpdate="true"/>
+					<h:panelGrid id="display01Id" columns="2" cellpadding="6" style="font-size:12px; font-family:Verdana">
+						<h:outputText value="Funcionário: *"/>
+						<p:selectOneMenu id="funcionario" value="#{usuarioMBean.usuario.funcionario.codigo}" required="true" requiredMessage="É necessário selecionar um funcionário">
+							<f:selectItems value="#{selectOneMenuMBean.listaFuncionarios}"/>
+						</p:selectOneMenu>
+						<h:outputText value="Login: *"/>
+		  				<p:inputText id="login" value="#{usuarioMBean.usuario.login}"  required="true" requiredMessage="É necessário informar o login do usuário"/>
+		  				<h:outputLabel value="Senha: *" />
+		            	<p:password id="senha1" value="#{usuarioMBean.usuario.senha}" match="senha2" validatorMessage="As senhas informadas são diferentes"/>
+		            	<h:outputLabel value="Confirma a senha: *" />
+		            	<p:password id="senha2" value="#{usuarioMBean.usuario.senha}"/>
+		            	<p:spacer height="10"></p:spacer>
+  				      <f:facet name="footer">
+			  				<p:commandButton icon="ui-icon ui-icon-disk" update=":form02Id:display01Id,:form01Id:dataTable01Id" value="Salvar" action="#{usuarioMBean.editar()}" oncomplete="handleEdita(xhr, status, args)" title="Salvar" style="width:100px;"/>
+			  				<p:commandButton icon="ui-icon-circle-triangle-w" value="Cancelar" onclick="editaUsuarioDialog.hide()" immediate="true" title="Cancelar" style="width:100px; left:100%"/>
+			  			</f:facet>
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Novo Usuário" widgetVar="novoUsuarioDialog" resizable="false" id="novoUsuarioDlgId" showEffect="fade" hideEffect="fade" width="800" position="center" style="font-size:16px">
+			<h:form id="form03Id">
+				<p:panel id="panel03Id">
+					<p:messages id="msgs3" autoUpdate="true" />
+					<h:panelGrid id="display03Id" columns="2" cellpadding="6" style="font-size:12px; font-family:Verdana">
+				   	<h:outputText value="Funcionário: *"/>
+					<p:selectOneMenu id="funcionario" value="#{usuarioMBean.usuario.funcionario.codigo}" required="true" requiredMessage="É necessário selecionar um funcionário">
+				    	<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{selectOneMenuMBean.listaFuncionarios}"/>
+					</p:selectOneMenu>
+  		  		    <h:outputText value="Login: *"/>
+  				    <p:inputText id="login" value="#{usuarioMBean.usuario.login}" required="true" requiredMessage="É necessário informar o login do usuário"/>
+            		<h:outputLabel value="Senha: *" />
+            		<p:password id="senha1" value="#{usuarioMBean.usuario.senha}" match="senha2" required="true" requiredMessage="É necessário informar a senha" validatorMessage="As senhas informadas são diferentes"/>
+            		<h:outputLabel value="Confirma a senha: *" />
+            		<p:password id="senha2" value="#{usuarioMBean.usuario.senha}" required="true" requiredMessage="É necessário confirmar a senha"/>
+            		<p:spacer height="10"></p:spacer>
+            		<f:facet name="footer">
+			  				<p:commandButton icon="ui-icon ui-icon-disk" update=":form03Id:display03Id,:form01Id:dataTable01Id" value="Salvar" actionListener="#{usuarioMBean.salvar}" title="Salvar" style="width:100px;"/>
+			  				<p:commandButton icon="ui-icon-circle-triangle-w" value="Fechar" onclick="novoUsuarioDialog.hide()" immediate="true" title="Fechar" style="width:100px; left:100%"/>
+			  			</f:facet>
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog id="basicDialogId" header="Atenção ao excluir" widgetVar="dlg1" resizable="false" showEffect="fade" hideEffect="fade" modal="false" width="500" height="80" position="center">
+	  		<h:panelGrid id="display02Id" cellpadding="4" style="font-size:12px; font-family:Verdana">
+	  	  		<h:outputText value="Deseja mesmo excluir este registro?" />
+	  	  		<f:facet name="footer">
+              	<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" update=":form01Id:dataTable01Id" action="#{usuarioMBean.remover()}" style="font-size:12px; width:50px; height:30px"/>
+	  	 			<p:commandButton id="decline" value="Não" onclick="dlg1.hide()" type="button" style="font-size:12px; width:50px; height:30px"/>
+            </f:facet>
+	  		</h:panelGrid>
+		</p:dialog>
+
+	</ui:define>
+
+</ui:composition>

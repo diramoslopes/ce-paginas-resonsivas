@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      template="/WEB-INF/templates/Layout.xhtml">
+
+	<ui:define name="conteudo">
+
+	   	<h:form id="form01Id">
+
+	   	  <p:panel id="panel01Id" header="Lista de Funcionários" toggleable="true" style="width:auto; font-size:14px;">
+	   	  		
+	   	  		<p:toolbar style="margin: 10px 0;">
+				
+					<p:toolbarGroup align="right">
+						<p:commandButton value="Novo funcionario" action="#{funcionarioMBean.novo()}"/>
+					</p:toolbarGroup>
+				
+				</p:toolbar>
+
+			     <p:dataTable id="dataTable01Id" var="funcionario" value="#{funcionarioMBean.funcionarios}" filteredValue="#{funcionarioMBean.funcionariosFiltrados}" widgetVar="funcionarioTable" scrollable="true" scrollHeight="650" resizableColumns="true" style="font-size:12px;font-family:Verdana">
+			     		<p:column id="nomeColumnId" headerText="Nome" filterBy="#{funcionario.nome}" sortBy="#{funcionario.nome}" style="text-align:center;font-size:12px;">
+			             <h:outputText value="#{funcionario.nome}" />
+			        	</p:column>
+			        	<p:column id="ramalColumnId" headerText="Ramal" filterBy="#{funcionario.ramal}" sortBy="#{funcionario.ramal}" style="text-align:center;font-size:12px;">
+			             <h:outputText value="#{funcionario.ramal}" />
+			        	</p:column>
+			        	<p:column id="departamentoColumnId" headerText="Departamento" filterBy="#{funcionario.departamento.nome}" sortBy="#{funcionario.departamento.nome}" style="text-align:center;font-size:12px;">
+			             <h:outputText value="#{funcionario.departamento.nome}" />
+			        	</p:column>
+			        <p:column id="opcoesColumnId" headerText="Opções" style="text-align:center;font-size:12px;">
+				        <f:facet name="header">
+			           		<h:outputText value="Opções" />
+			           </f:facet>
+		              <p:commandButton id="selectButtonId" update=":form02Id:display01Id" oncomplete="funcionarioDialog.show()" icon="fa fa-pencil" title="Detalhes/Editar" style="width:50px">
+		                  <f:setPropertyActionListener value="#{funcionario}" target="#{funcionarioMBean.funcionario}" />
+		              </p:commandButton>
+			           <p:commandButton id="deleteButtonId" update=":form01Id:dataTable01Id" icon="fa fa-trash" title="Excluir" onclick="dlg1.show()" style="width:50px">
+			               <f:setPropertyActionListener value="#{funcionario}" target="#{funcionarioMBean.funcionario}" />
+			           </p:commandButton>
+			        </p:column>
+			     </p:dataTable>
+
+		     </p:panel>
+
+		  </h:form>
+
+			<p:dialog header="Detalhes do Funcionário" widgetVar="funcionarioDialog" resizable="false" id="funcionarioDlg" showEffect="fade" hideEffect="explode" modal="false" width="700" style="font-size:16px" >
+				<h:form id="form02Id">
+					<p:panel id="panel02Id">
+						<p:messages id="msgs2" autoUpdate="true"/>
+						<h:panelGrid id="display01Id" cellpadding="6" columns="2" style="font-size:12px; font-family:Verdana">
+					   	<h:outputText value="Nome:" style="font-weight: bold"/>
+					      <p:inplace id="nomeInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração">
+					      	<p:ajax event="save" listener="#{funcionarioMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel02Id"></p:ajax>
+					         <p:inputText id="nome" value="#{funcionarioMBean.funcionario.nome}" required="true" requiredMessage="O campo nome é obrigatório" validatorMessage="O nome do funcionário deve ter entre 2 e 60 caractéres">
+					         	<f:validateLength minimum="2" maximum="60"/>
+								</p:inputText>
+					      </p:inplace>
+			  		      <h:outputText value="Ramal:" style="font-weight: bold"/>
+					      <p:inplace id="ramalInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" emptyLabel="Informe o ramal">
+				      		<p:ajax event="save" listener="#{funcionarioMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel02Id"></p:ajax>
+								<p:inputText id="ramal" value="#{funcionarioMBean.funcionario.ramal}" validatorMessage="O ramal deve ter 4 caractéres no máximo">
+									<f:validateLength minimum="0" maximum="4" />
+								</p:inputText>
+			   		   </p:inplace>
+				      	<h:outputText value="Departamento:" style="font-weight: bold"/>
+							<p:inplace id="departamentoInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" label="#{funcionarioMBean.funcionario.departamento.nome}">
+					      	<p:ajax event="save" listener="#{funcionarioMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel02Id"></p:ajax>
+					      	<h:selectOneMenu id="departamento" value="#{funcionarioMBean.funcionario.departamento.codigo}">
+									<f:selectItems value="#{selectOneMenuMBean.listaDepartamentos}"/>
+								</h:selectOneMenu>
+							</p:inplace>
+						</h:panelGrid>
+						<p:separator/>
+						<h:outputText value="Para alterar algum dado basta clicar em cima." style="font-size:12px; font-family:Verdana"/>
+					</p:panel>
+				</h:form>
+			</p:dialog>
+
+			<p:dialog id="basicDialogId" header="Atenção ao excluir" widgetVar="dlg1" resizable="false" showEffect="fade" hideEffect="fade" modal="false" width="500" height="95" position="center">
+	  			<h:panelGrid id="display02Id" cellpadding="4" style="font-size:12px; font-family:Verdana">
+	  		  		<h:outputText value="Deseja mesmo excluir este registro?" />
+	  		  		<h:outputText value="ATENÇÃO, os equipamentos deste funcionário também serão excluídos!" />
+	  		  		<f:facet name="footer">
+               	<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" action="#{funcionarioMBean.remover()}" style="font-size:12px; width:50px; height:30px"/>
+	  		  			<p:commandButton id="decline" value="Não" onclick="dlg1.hide()" type="button" style="font-size:12px; width:50px; height:30px"/>
+               </f:facet>
+	  	  		</h:panelGrid>
+			</p:dialog>
+
+		</ui:define>
+
+</ui:composition>

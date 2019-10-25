@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/WEB-INF/templates/Layout.xhtml">
+
+	<ui:define name="conteudo">
+
+		<h:form id="form01Id" style="font-family:Verdana">
+		
+			<p:panel id="panel01Id" header="Lista de Departamentos"
+				toggleable="true"
+				style="width:auto; font-size:14px">
+		
+				<p:toolbar style="margin: 10px 0;">
+				
+					<p:toolbarGroup align="right">
+						<p:commandButton value="Novo departamento" action="#{departamentoMBean.novo()}"/>
+					</p:toolbarGroup>
+				
+				</p:toolbar>
+
+				<p:dataTable id="dataTable01Id" var="departamento"
+					value="#{departamentoMBean.departamentos}"
+					filteredValue="#{departamentoMBean.departamentosFiltrados}"
+					widgetVar="departamentoTable" scrollable="true" scrollHeight="650"
+					resizableColumns="true" style="font-size:12px;font-family:Verdana">
+					
+					<p:column id="nomeColumnId" headerText="Nome"
+						filterBy="#{departamento.nome}" sortBy="#{departamento.nome}"
+						style="text-align:center;font-size:12px;font-family:Verdana">
+						<h:outputText value="#{departamento.nome}" />
+					</p:column>
+					
+					<p:column id="andarColumnId" headerText="Andar"
+						filterBy="#{departamento.andar.label}"
+						sortBy="#{departamento.andar.label}"
+						style="text-align:center;font-size:12px;font-family:Verdana">
+						<h:outputText value="#{departamento.andar.label}" />
+					</p:column>
+					
+					<p:column id="opcoesColumnId" headerText="Opções"
+						style="text-align:center;font-size:12px;font-family:Verdana">
+						<f:facet name="header">
+							<h:outputText value="Opções" />
+						</f:facet>
+						<p:commandButton id="selectButtonId"
+							update=":form02Id:display01Id"
+							oncomplete="departamentoDialog.show()" icon="fa fa-pencil"
+							title="Detalhes/Editar" style="width:50px">
+							<f:setPropertyActionListener value="#{departamento}"
+								target="#{departamentoMBean.departamento}" />
+						</p:commandButton>
+						<p:commandButton id="deleteButtonId"
+							update=":form01Id:dataTable01Id" icon="fa fa-trash"
+							title="Excluir" onclick="dlg1.show()" style="width:50px">
+							<f:setPropertyActionListener value="#{departamento}"
+								target="#{departamentoMBean.departamento}" />
+						</p:commandButton>
+					</p:column>
+					
+				</p:dataTable>
+
+			</p:panel>
+
+		</h:form>
+
+		<p:dialog header="Detalhes do Departamento"
+			widgetVar="departamentoDialog" resizable="false"
+			id="departamentoDlgId" showEffect="fade" hideEffect="explode"
+			modal="false" width="700" position="center" style="font-size:16px">
+			
+			<h:form id="form02Id">
+			
+				<p:panel id="panel02Id">
+				
+					<p:messages id="msgs2" autoUpdate="true" />
+					
+					<h:panelGrid id="display01Id" columns="2" cellpadding="6"
+						style="font-size:12px; font-family:Verdana">
+						
+						<h:outputText value="Nome:" style="font-weight: bold" />
+						<p:inplace id="nomeInplace" editor="true"
+							cancelLabel="Cancelar alteração" saveLabel="Salvar alteração">
+							<p:ajax event="save" listener="#{departamentoMBean.salvar}"
+								update=":form01Id:dataTable01Id,:form02Id:panel02Id"></p:ajax>
+							<p:inputText id="nome"
+								value="#{departamentoMBean.departamento.nome}" required="true"
+								requiredMessage="O campo nome é obrigatório"
+								validatorMessage="O nome do departamento deve ter entre 2 e 60 caractéres">
+								<f:validateLength minimum="2" maximum="60" />
+							</p:inputText>
+						</p:inplace>
+						
+						<h:outputText value="Andar:" style="font-weight: bold" />
+						<p:inplace id="andarInplace" editor="true"
+							cancelLabel="Cancelar alteração" saveLabel="Salvar alteração"
+							label="#{departamentoMBean.departamento.andar.label}">
+							<p:ajax event="save" listener="#{departamentoMBean.salvar}"
+								update=":form01Id:dataTable01Id,:form02Id:panel02Id"></p:ajax>
+							<h:selectOneMenu id="andar"
+								value="#{departamentoMBean.departamento.andar}">
+								<f:selectItems value="#{selectOneMenuMBean.tipoAndarLabels}" />
+							</h:selectOneMenu>
+						</p:inplace>
+						
+					</h:panelGrid>
+					
+					<p:separator />
+					<h:outputText value="Para alterar algum dado basta clicar em cima."
+						style="font-size:12px; font-family:Verdana" />
+						
+				</p:panel>
+				
+			</h:form>
+			
+		</p:dialog>
+
+		<p:dialog id="basicDialogId" header="Atenção ao excluir"
+			widgetVar="dlg1" resizable="false" showEffect="fade"
+			hideEffect="explode" modal="false" width="615" height="95"
+			position="center">
+			
+			<h:panelGrid id="display2" cellpadding="4"
+				style="font-size:12px; font-family:Verdana">
+				<h:outputText value="Deseja mesmo excluir este registro?" />
+				<h:outputText value="ATENÇÃO, os funcionários e equipamentos deste departamento também serão excluídos!" />
+				<f:facet name="footer">
+				
+					<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()"
+						action="#{departamentoMBean.remover()}"
+						style="font-size:12px; width:50px; height:30px" />
+					<p:commandButton id="decline" value="Não" onclick="dlg1.hide()"
+						type="button" style="font-size:12px; width:50px; height:30px" />
+						
+				</f:facet>
+			</h:panelGrid>
+			
+		</p:dialog>
+
+	</ui:define>
+
+</ui:composition>

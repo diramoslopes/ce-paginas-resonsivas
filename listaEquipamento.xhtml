@@ -1,0 +1,279 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      template="/WEB-INF/templates/Layout.xhtml">
+
+   <script type="text/javascript">
+      function handleResponsavelRetirada(xhr, status, args) {
+		   if (!args.validationFailed) {
+			   retiradaEquipamentoDlg.hide();
+				}
+			}
+	</script>
+
+	<ui:define name="conteudo">
+
+	   	<h:form id="form01Id" style="position:absolute;width:100%">
+					
+	   	  <p:panel id="panel01Id" header="Lista de Equipamentos" toggleable="true" style="width:auto; font-size:14px;">
+	   	  
+	   	  		<p:toolbar style="margin: 10px 0;">
+	   	  		
+	   	  			<p:toolbarGroup>
+	   	  				   <p:commandButton title="Exportar para o Excel" icon="fa fa-file-excel-o"  
+	             				ajax="false">
+	             			<p:dataExporter type="xls" target="dataTable01Id" fileName="tabelaDeEquipamentos" />
+	             	 	  </p:commandButton>
+	   	  			</p:toolbarGroup>
+				
+					<p:toolbarGroup align="right">
+						<p:commandButton value="Novo equipamento" action="#{equipamentoMBean.novo()}"/>
+					</p:toolbarGroup>
+					
+				</p:toolbar>
+
+               <p:panel id="panelImprimir">
+					<p:panelGrid id="panelGridImprimir" columns="3" >
+	                  <h:commandLink id="pdf" actionListener="#{equipamentoMBean.gerarRelatorioEquipamentos}" target="_blank">
+	                     <p:graphicImage value="/recursos/imagens/pdf.png" title="Para PDF" />
+	                  </h:commandLink>
+	                  <h:commandLink id="pdf2" actionListener="#{equipamentoMBean.gerarRelatorioEquipamentosXls}" >
+	                     <p:graphicImage value="/recursos/imagens/xls.png" title="Para XLS"/>
+	                  </h:commandLink>
+
+	                  <p:commandButton id="btnRetiradaEquipamento"
+										onclick="retiradaEquipamentoDlg.show()"
+	                                   title="Emitir o termo de retirada dos equipamentos listados"
+	                                   update=":retiradaEquipamentoForm"
+	                                   style="width:50%;height:32%"
+	                                   icon="fa fa-clipboard">
+	                  </p:commandButton>
+	                  
+                  </p:panelGrid>
+               </p:panel>
+
+              <p:dataTable  id="dataTable01Id" 
+              				var="equipamento" 
+              				value="#{equipamentoMBean.equipamentos}" 
+              				filteredValue="#{equipamentoMBean.equipamentosFiltrados}" 
+              				widgetVar="equipamentoTable" 
+              				scrollable="true" 
+              				scrollHeight="600" 
+              				resizableColumns="true" 
+              				style="font-size:12px;"
+              				selectionMode="single" selection="#{equipamentoMBean.equipamento}"
+              				rowKey="#{equipamento.codigo}" 
+              				reflow="true"
+              				paginator="true" rows="10" paginatorPosition="bottom" >
+              
+			        <p:column headerText="Departamento" id="nomeColumnId" filterBy="#{equipamento.departamento.nome}" sortBy="#{equipamento.departamento.nome}" style="text-align:left" priority="6">
+			           <p:outputLabel value="#{equipamento.departamento.nome}" />
+			        </p:column>
+			        
+			        <p:column headerText="Entidade" id="entidadeColumnId" filterBy="#{equipamento.entidade.label}" sortBy="#{equipamento.entidade.label}" style="text-align:left" priority="6">
+			           <p:outputLabel value="#{equipamento.entidade.label}" />
+			        </p:column>
+			        
+			        <p:column headerText="Funcionário" id="funcionarioColumnId" filterBy="#{equipamento.funcionario.nome}" sortBy="#{equipamento.funcionario.nome}" style="text-align:left" priority="3">
+			           <p:outputLabel value="#{equipamento.funcionario.nome}" />
+			        </p:column>
+			        
+			        <p:column headerText="Série" id="NumSerieColumnId" filterBy="#{equipamento.numeroDeSerie}" sortBy="#{equipamento.numeroDeSerie}" style="text-align:left" priority="6">
+			           <p:outputLabel value="#{equipamento.numeroDeSerie}" />
+			        </p:column>
+			        
+			        <p:column headerText="Patrimônio" id="numPatrocinioColumnId" filterBy="#{equipamento.numeroDoPatrimonio}" sortBy="#{equipamento.numeroDoPatrimonio}" style="text-align:left" priority="3">
+			           <p:outputLabel value="#{equipamento.numeroDoPatrimonio}" />
+			        </p:column>
+			        
+			        <p:column headerText="Tipo" id="tipoColumnId" filterBy="#{equipamento.tipo.label}" sortBy="#{equipamento.tipo.label}" style="text-align:left" priority="6">
+			           <p:outputLabel value="#{equipamento.tipo.label}" style="text-align:right" />
+			        </p:column>
+			        
+			        <p:column headerText="Marca" id="marcaColumnId" filterBy="#{equipamento.marca}" sortBy="#{equipamento.marca}" style="text-align:left" priority="6">
+			           <p:outputLabel value="#{equipamento.marca}" style="text-align:right"/>
+			        </p:column>
+			        
+			        <p:column headerText="Modelo" id="modeloColumnId" filterBy="#{equipamento.modelo}" sortBy="#{equipamento.modelo}" style="text-align:left" priority="6">
+			           <p:outputLabel value="#{equipamento.modelo}" style="text-align:right"/>
+			        </p:column>
+			        
+			        <p:column headerText="Status" id="statusColumnId" filterBy="#{equipamento.status.label}" sortBy="#{equipamento.status.label}" style="text-align:left" priority="6">
+			           <p:outputLabel value="#{equipamento.status.label}" style="text-align:right" />
+			        </p:column>
+			        
+			        <p:column id="opcoesColumnId" headerText="Opções" style="text-align:left" exportable="false" priority="6">
+		              <p:commandButton id="selectButtonId" update=":form02Id:display01Id" oncomplete="equipamentoDialog.show()" icon="fa fa-pencil" title="Detalhes/Editar" style="width:40px">
+		                  <f:setPropertyActionListener value="#{equipamento}" target="#{equipamentoMBean.equipamento}" />
+		              </p:commandButton>
+			           <p:commandButton id="deleteButtonId" update=":form01Id:dataTable01Id" icon="fa fa-trash" title="Excluir" onclick="dlg1.show()" style="width:40px">
+			               <f:setPropertyActionListener value="#{equipamento}" target="#{equipamentoMBean.equipamento}" />
+			           </p:commandButton>
+		           </p:column>
+		           
+			     </p:dataTable>
+
+		     </p:panel>
+
+		  </h:form>
+
+			<p:dialog header="Detalhes do Equipamento" widgetVar="equipamentoDialog" resizable="false" id="equipamentoDlgId" showEffect="fade" hideEffect="explode" modal="false" width="775" style="font-size:16px" position="center">
+				<h:form id="form02Id">
+					<p:panel id="panel2">
+						<p:messages id="msgs2" autoUpdate="true" globalOnly="true" />
+						
+						<p:panelGrid id="display01Id" columns="2" cellpadding="6" style="font-size:12px; font-family:Verdana">
+						
+							<p:outputLabel value="Departamento:" style="font-weight: bold"/>
+							<p:inplace id="departamentoInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" label="#{equipamentoMBean.equipamento.departamento.nome}">
+						      <p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
+								<h:selectOneMenu id="departamento" value="#{equipamentoMBean.equipamento.departamento.codigo}">
+									<f:selectItems value="#{selectOneMenuMBean.listaDepartamentos}"/>
+								</h:selectOneMenu>
+							</p:inplace>
+							
+						   <p:outputLabel value="Entidade:" style="font-weight: bold"/>
+							<p:inplace id="entidadeInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" label="#{equipamentoMBean.equipamento.entidade.label}">
+						      <p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
+								<h:selectOneMenu id="entidade" value="#{equipamentoMBean.equipamento.entidade}">
+									<f:selectItems value="#{selectOneMenuMBean.tipoEntidadeLabels}"/>
+								</h:selectOneMenu>
+							</p:inplace>
+							
+						   <p:outputLabel value="Funcionário:" style="font-weight: bold"/>
+	  							<p:inplace id="funcionarioInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" label="#{equipamentoMBean.equipamento.funcionario.nome}">
+						      <p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
+								<p:selectOneMenu id="funcionario" value="#{equipamentoMBean.equipamento.funcionario.codigo}">
+									<f:selectItems value="#{selectOneMenuMBean.listaFuncionarios}"/>
+								</p:selectOneMenu>
+							</p:inplace>
+							
+						   <p:outputLabel value="Número de série:" style="font-weight: bold"/>
+						   <p:inplace id="numSerieInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" emptyLabel="Informe o número de série">
+					      	<p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
+					         <p:inputText id="numeroDeSerie" value="#{equipamentoMBean.equipamento.numeroDeSerie}" size="50" validatorMessage="O número de série deve ter entre 4 e 30 caractéres">
+									<f:validateLength minimum="4" maximum="30" />
+								</p:inputText>
+					      </p:inplace>
+					      
+					  	   <p:outputLabel value="Número do patrimônio:" style="font-weight: bold"/>
+						   <p:inplace id="numPatrimonioInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração">
+					      	<p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
+					         <p:inputText id="numeroDoPatrimonio" value="#{equipamentoMBean.equipamento.numeroDoPatrimonio}" validatorMessage="O número de patrimônio deve ter entre 3 e 6 caractéres">
+									<f:validateLength minimum="3" maximum="6"/>
+							</p:inputText>
+					      </p:inplace>
+					      
+						   <p:outputLabel value="Tipo:" style="font-weight: bold"/>
+			            <p:inplace id="tipoInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" label="#{equipamentoMBean.equipamento.tipo.label}">
+			            	<p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
+			            	<p:selectOneMenu id="tipo" value="#{equipamentoMBean.equipamento.tipo}">
+									<f:selectItems value="#{selectOneMenuMBean.tipoEquipamentoLabels}"/>
+							</p:selectOneMenu>
+							</p:inplace>
+							
+						   <p:outputLabel value="Marca:" style="font-weight: bold"/>
+						   <p:inplace id="marcaInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" emptyLabel="Informe a marca">
+					      	<p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
+					         <p:inputText id="marca" value="#{equipamentoMBean.equipamento.marca}" validatorMessage="A marca deve ter entre 2 e 20 caractéres">
+									<f:validateLength minimum="2" maximum="20"/>
+							</p:inputText>
+					      </p:inplace>
+					      
+						   <p:outputLabel value="Modelo:" style="font-weight: bold"/>
+		  				   <p:inplace id="modeloInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" emptyLabel="Informe o modelo">
+					      	<p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
+					         <p:inputText id="modelo" value="#{equipamentoMBean.equipamento.modelo}" size="50" validatorMessage="O modelo deve ter entre 2 e 60 caractéres">
+									<f:validateLength minimum="2" maximum="60"/>
+							 </p:inputText>
+					      </p:inplace>
+					      
+					 	   <p:outputLabel value="Status:" style="font-weight: bold"/>
+  		  				   <p:inplace id="statusInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" label="#{equipamentoMBean.equipamento.status.label}">
+					      	<p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
+			            	<p:selectOneMenu id="status" value="#{equipamentoMBean.equipamento.status}">
+									<f:selectItems value="#{selectOneMenuMBean.tipoStatusLabels}"/>
+							</p:selectOneMenu>
+					      </p:inplace>
+					      
+						   <p:outputLabel value="Sistema Operacional:" style="font-weight: bold"/>
+						   <p:inplace id="sistemaOperacionalInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" emptyLabel="Informe o sistema operacional" label="#{equipamentoMBean.equipamento.sistemaOperacional.label}">
+						   	<p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
+						   	<p:selectOneMenu id="sistemaOperacional" value="#{equipamentoMBean.equipamento.sistemaOperacional}">
+									<f:selectItems value="#{selectOneMenuMBean.tipoSistemaOperacionalLabels}"/>
+								</p:selectOneMenu>
+						   </p:inplace>
+						   
+						   <p:outputLabel value="Pacote Office:" style="font-weight: bold"/>
+						   <p:inplace id="pacoteOfficeInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" emptyLabel="Informe o pacote office" label="#{equipamentoMBean.equipamento.pacoteOffice.label}">
+						   	<p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
+						   	<h:selectOneMenu id="pacoteOffice" value="#{equipamentoMBean.equipamento.pacoteOffice}">
+									<f:selectItems value="#{selectOneMenuMBean.tipoPacoteOfficeLabels}"/>
+								</h:selectOneMenu>
+						   </p:inplace>
+						   
+						   <p:outputLabel value="Observação:" style="font-weight: bold"/>
+						   <p:inplace id="observacaoInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" emptyLabel="Informe uma observação" >
+						   	<p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
+						   	<p:inputTextarea value="#{equipamentoMBean.equipamento.observacao}" style="width:415px;height:50px;" cols="500" rows="234" autoResize="true" />
+						   </p:inplace>
+						   
+					   </p:panelGrid>
+					   
+					   <p:separator/>
+					   
+						<p:outputLabel value="Para alterar algum dado basta clicar em cima." style="font-size:12px; font-family:Verdana"/>
+					</p:panel>
+				</h:form>
+			</p:dialog>
+
+               <p:dialog id="retiradaEquipamentoId"
+                      header="Solicitação de boleto"
+                      widgetVar="retiradaEquipamentoDlg"
+                      resizable="false"
+                      showEffect="fade"
+                      hideEffect="fade"
+                      modal="false"
+                      width="550"
+                      height="125"
+                      position="center"
+                      style="font-size:14px; font-family:Verdana">
+		  		     
+		  		      <h:form id="retiradaEquipamentoForm">
+		  		       
+ 							<p:panel id="retiradaEquipamentoPanel">
+
+			  		          <p:panelGrid id="retiradaEquipamentoGrid" cellpadding="4" columns="2"  style="font-size:12px; font-family:Verdana">
+	                          		 <p:outputLabel value="Responsável pela retirada: "/>
+				  		             <p:inputText id="responsavelRetiradaId" value="#{equipamentoMBean.nomeResponsavel}" size="40"/>
+			  		       	  </p:panelGrid>
+
+			  		       	  <p:spacer height="5"></p:spacer>
+
+			  	  		      <f:facet name="footer">
+			  	  		         <h:commandLink id="confirm" value="Imprimir Termo" actionListener="#{equipamentoMBean.gerarTermoDeRetirada}" oncomplete="handleResponsavelRetirada(xhr, status, args)" style="width:150px; height:30px; left:5%;font-family:Verdana;font-size:12px;" target="_blank" />
+			  	 			      <p:commandButton id="decline" value="Cancelar" onclick="retiradaEquipamentoDlg.hide()" type="button" style="width:150px; height:30px; left:30%;font-family:Verdana;font-size:12px;"/>
+		                	  </f:facet>
+			  		     </p:panel>
+		  		     
+		  		      </h:form>
+		  		      
+		         </p:dialog>
+
+        	<p:dialog id="basicDialogId" header="Atenção ao excluir" widgetVar="dlg1" resizable="false" showEffect="fade" hideEffect="explode" modal="false" width="400" height="70" position="center">
+	  			<p:panelGrid id="display02Id" cellpadding="4" style="font-size:12px; font-family:Verdana">
+	  		  		<h:outputText value="Deseja mesmo excluir este registro?"/>
+	  		  		<f:facet name="footer">
+               	<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" action="#{equipamentoMBean.remover()}" style="font-size:12px; width:50px; height:30px"/>
+	  		  			<p:commandButton id="decline" value="Não" onclick="dlg1.hide()" type="button" style="font-size:12px; width:50px; height:30px"/>
+               </f:facet>
+	  	  		</p:panelGrid>
+			</p:dialog>
+
+	</ui:define>
+
+</ui:composition>
