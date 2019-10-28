@@ -50,7 +50,7 @@
 						
 						<p:commandButton id="selectButtonId"
 							update=":form02Id:display01Id"
-							oncomplete="departamentoDialog.show()" icon="fa fa-pencil"
+							oncomplete="PF('departamentoDialog').show()" icon="fa fa-pencil"
 							title="Detalhes/Editar" style="width:50px">
 							<f:setPropertyActionListener value="#{departamento}"
 								target="#{departamentoMBean.departamento}" />
@@ -72,18 +72,26 @@
 		</h:form>
 
 		<p:dialog header="Detalhes do Departamento"
-			widgetVar="departamentoDialog" resizable="false"
-			id="departamentoDlgId" showEffect="fade" hideEffect="explode"
-			modal="false" width="700" position="center" style="font-size:16px">
+		          widgetVar="departamentoDialog" 
+		          resizable="false"
+		          id="departamentoDlgId" 
+		          showEffect="fade" hideEffect="explode"
+		          modal="true"
+		          closeOnEscape="true"
+		          responsive="true">
 			
 			<h:form id="form02Id">
 			
-				<p:panel id="panel02Id">
+			<h:panelGroup id="panel02Id" layout="block" styleClass="ui-fluid">
+			
 				
 					<p:messages id="msgs2" autoUpdate="true" />
 					
-					<p:panelGrid id="display01Id" columns="2" cellpadding="6"
-						style="font-size:12px; font-family:Verdana">
+					<p:panelGrid id="display01Id" 
+								 columns="2" cellpadding="6"
+								 layout="grid"
+								 columnClasses="ui-grid-col-6, ui-grid-col-6"
+								 styleClass="panelgrid-noborder">
 						
 						<p:outputLabel value="Nome:" style="font-weight: bold" />
 						<p:inplace id="nomeInplace" editor="true"
@@ -115,8 +123,7 @@
 					<p:separator />
 					<p:outputLabel value="Para alterar algum dado basta clicar em cima." />
 						
-				</p:panel>
-				
+				</h:panelGroup>
 			</h:form>
 			
 		</p:dialog>

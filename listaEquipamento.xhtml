@@ -229,7 +229,7 @@
 					   
 					   <p:separator/>
 					   
-						<p:outputLabel value="Para alterar algum dado basta clicar em cima." style="font-size:12px; font-family:Verdana"/>
+						<p:outputLabel value="Para alterar algum dado basta clicar em cima."/>
 					</p:panel>
 				</h:form>
 			</p:dialog>
@@ -272,11 +272,11 @@
 	  			<p:panelGrid id="display02Id" cellpadding="4" style="font-size:12px; font-family:Verdana">
 	  		  		<p:outputLabel value="Deseja mesmo excluir este registro?"/>
 	  		  		<f:facet name="footer">
-               	<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" action="#{equipamentoMBean.remover()}" style="font-size:12px; width:50px; height:30px"/>
+               			<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" action="#{equipamentoMBean.remover()}" style="font-size:12px; width:50px; height:30px"/>
 	  		  			<p:commandButton id="decline" value="Não" onclick="dlg1.hide()" type="button" style="font-size:12px; width:50px; height:30px"/>
-               </f:facet>
+              		</f:facet>
 	  	  		</p:panelGrid>
-			</p:dialog>
+		   </p:dialog>
 
 	</ui:define>
 
