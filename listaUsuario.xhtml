@@ -134,22 +134,22 @@
 							columnClasses="ui-grid-col-6, ui-grid-col-6"
 							styleClass="panelgrid-noborder">
 					
-					   	<p:outputLabel value="Funcionário:" for="funcionario"/>
+					   	<p:outputLabel value="Funcionário:" for="funcionario" style="font-weight: bold"/>
 						<p:selectOneMenu id="funcionario" value="#{usuarioMBean.usuario.funcionario.codigo}" required="true" requiredMessage="É necessário selecionar um funcionário"
 										 style="width:100%">
 					    	<f:selectItem itemLabel="" itemValue="" />
 							<f:selectItems value="#{selectOneMenuMBean.listaFuncionarios}"/>
 						</p:selectOneMenu>
 						
-	  		  		    <p:outputLabel value="Login:" for="login"/>
+	  		  		    <p:outputLabel value="Login:" for="login" style="font-weight: bold"/>
 	  				    <p:inputText id="login" value="#{usuarioMBean.usuario.login}" required="true" 
 	  				    			requiredMessage="É necessário informar o login do usuário" style="width:100%"/>
 	  				    
-	            		<p:outputLabel value="Senha:" for="senha1"/>
+	            		<p:outputLabel value="Senha:" for="senha1" style="font-weight: bold"/>
 	            		<p:password id="senha1" value="#{usuarioMBean.usuario.senha}" match="senha2" required="true" requiredMessage="É necessário informar a senha" 
 	            					validatorMessage="As senhas informadas são diferentes" style="width:100%"/>
 	            		
-	            		<p:outputLabel value="Confirma a senha:" for="senha2" />
+	            		<p:outputLabel value="Confirma a senha:" for="senha2" style="font-weight: bold"/>
 	            		<p:password id="senha2" value="#{usuarioMBean.usuario.senha}" required="true" requiredMessage="É necessário confirmar a senha" style="width:100%"/>
 	            		
 	            		<f:facet name="footer">
