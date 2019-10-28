@@ -22,19 +22,20 @@
 				</p:toolbar>
 
 			     <p:dataTable id="dataTable01Id" var="funcionario" value="#{funcionarioMBean.funcionarios}" filteredValue="#{funcionarioMBean.funcionariosFiltrados}" widgetVar="funcionarioTable" scrollable="true" scrollHeight="650" resizableColumns="true" style="font-size:12px;font-family:Verdana">
+			     		
 			     		<p:column id="nomeColumnId" headerText="Nome" filterBy="#{funcionario.nome}" sortBy="#{funcionario.nome}" style="text-align:center;font-size:12px;">
-			             <h:outputText value="#{funcionario.nome}" />
+			             <h:outputLabel value="#{funcionario.nome}" />
 			        	</p:column>
+			        	
 			        	<p:column id="ramalColumnId" headerText="Ramal" filterBy="#{funcionario.ramal}" sortBy="#{funcionario.ramal}" style="text-align:center;font-size:12px;">
-			             <h:outputText value="#{funcionario.ramal}" />
+			             <h:outputLabel value="#{funcionario.ramal}" />
 			        	</p:column>
+			        	
 			        	<p:column id="departamentoColumnId" headerText="Departamento" filterBy="#{funcionario.departamento.nome}" sortBy="#{funcionario.departamento.nome}" style="text-align:center;font-size:12px;">
-			             <h:outputText value="#{funcionario.departamento.nome}" />
+			             <p:outputLabel value="#{funcionario.departamento.nome}" />
 			        	</p:column>
+			        	
 			        <p:column id="opcoesColumnId" headerText="Opções" style="text-align:center;font-size:12px;">
-				        <f:facet name="header">
-			           		<h:outputText value="Opções" />
-			           </f:facet>
 		              <p:commandButton id="selectButtonId" update=":form02Id:display01Id" oncomplete="funcionarioDialog.show()" icon="fa fa-pencil" title="Detalhes/Editar" style="width:50px">
 		                  <f:setPropertyActionListener value="#{funcionario}" target="#{funcionarioMBean.funcionario}" />
 		              </p:commandButton>
@@ -42,6 +43,7 @@
 			               <f:setPropertyActionListener value="#{funcionario}" target="#{funcionarioMBean.funcionario}" />
 			           </p:commandButton>
 			        </p:column>
+			        
 			     </p:dataTable>
 
 		     </p:panel>

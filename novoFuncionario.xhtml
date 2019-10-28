@@ -7,38 +7,41 @@
 
 		<ui:define name="conteudo">
 
-			<h:form id="funcionario" style="font-family:Verdana">
+			<h:form id="funcionario">
 
-				<p:panel id="panel" header="Cadastro de Funcionários" toggleable="true" style="font-size:16px">
+				<p:panel id="panel" header="Cadastro de Funcionários" toggleable="true" style="text-align:center">
 
-   				<p:messages id="msgs" autoUpdate="true" />
+   					<p:messages id="msgs" autoUpdate="true" />
 
-					<h:panelGrid columns="3" style="font-size:12px">
-						<h:outputText value="Nome: *"/>
-						<p:inputText id="nome" value="#{funcionarioMBean.funcionario.nome}" required="true" requiredMessage="O campo nome é obrigatório" validatorMessage="O nome do funcionário deve ter entre 2 e 60 caractéres">
-							<f:validateLength minimum="2" maximum="60"/>
-						</p:inputText>
-						<p:message id="defaultMessage1" for="nome" display="icon"/>
-
-						<h:outputText value="Ramal: "/>
-						<p:inputText id="ramal" value="#{funcionarioMBean.funcionario.ramal}" validatorMessage="O ramal deve ter 4 caractéres">
-							<f:validateLength minimum="4" maximum="4" />
-						</p:inputText>
-						<p:message id="defaultMessage2" for="ramal" display="icon"/>
-
-						<h:outputText value="Departamento: *"/>
-						<p:selectOneMenu id="departamento" value="#{funcionarioMBean.funcionario.departamento.codigo}" required="true" requiredMessage="É necessário selecionar um departamento" style="width:150px">
-							<f:selectItem itemLabel="" itemValue="" />
-							<f:selectItems value="#{selectOneMenuMBean.listaDepartamentos}"/>
-						</p:selectOneMenu>
-						<p:message id="defaultMessage3" for="departamento" display="icon"/>
-
-						<h:panelGrid columns="1" style="font-size:12px">
-							<p:spacer height="25"></p:spacer>
-							<p:commandButton value="Salvar" title="Salvar funcionário" icon="ui-icon ui-icon-disk" action="#{funcionarioMBean.salvar()}" style="width:100px" update="panel" />
-						</h:panelGrid>
-
-					</h:panelGrid>
+						<div class="ui-fluid">
+			
+							<p:panelGrid columns="4" layout="grid"
+										columnClasses="ui-grid-col-2, ui-grid-col-4 ,ui-grid-col-2, ui-grid-col-4"
+										styleClass="panelgrid-noborder">
+							
+								<p:outputLabel value="Nome:" for="nome"/>
+								<p:inputText id="nome" value="#{funcionarioMBean.funcionario.nome}" required="true" requiredMessage="O campo nome é obrigatório" validatorMessage="O nome do funcionário deve ter entre 2 e 60 caractéres"
+												style="width:80%">
+									<f:validateLength minimum="2" maximum="60"/>
+								</p:inputText>
+		
+								<h:outputText value="Ramal: "/>
+								<p:inputText id="ramal" value="#{funcionarioMBean.funcionario.ramal}" validatorMessage="O ramal deve ter 4 caractéres" style="width:80%">
+									<f:validateLength minimum="4" maximum="4" />
+								</p:inputText>
+		
+								<p:outputLabel value="Departamento:" for="departamento"/>
+								<p:selectOneMenu id="departamento" value="#{funcionarioMBean.funcionario.departamento.codigo}" required="true" requiredMessage="É necessário selecionar um departamento" style="width:80%" >
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems value="#{selectOneMenuMBean.listaDepartamentos}"/>
+								</p:selectOneMenu>
+								
+								<p:outputLabel/>
+								<p:commandButton value="Salvar" title="Salvar funcionário" icon="fa fa-floppy-o" action="#{funcionarioMBean.salvar()}" style="width:80%" update="panel" />
+		
+							</p:panelGrid>
+							
+				     </div>
 
 				</p:panel>
 
