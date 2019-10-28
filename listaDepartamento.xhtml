@@ -58,7 +58,7 @@
 						
 						<p:commandButton id="deleteButtonId"
 							update=":form01Id:dataTable01Id" icon="fa fa-trash"
-							title="Excluir" onclick="dlg1.show()" style="width:50px">
+							title="Excluir" onclick="PF('dlg1').show()" style="width:50px">
 							<f:setPropertyActionListener value="#{departamento}"
 								target="#{departamentoMBean.departamento}" />
 						</p:commandButton>
@@ -84,7 +84,6 @@
 			
 			<h:panelGroup id="panel02Id" layout="block" styleClass="ui-fluid">
 			
-				
 					<p:messages id="msgs2" autoUpdate="true" />
 					
 					<p:panelGrid id="display01Id" 
@@ -130,8 +129,7 @@
 
 		<p:dialog id="basicDialogId" header="Atenção ao excluir"
 			widgetVar="dlg1" resizable="false" showEffect="fade"
-			hideEffect="explode" modal="false" width="615" height="95"
-			position="center">
+			hideEffect="explode" modal="true">
 			
 			<p:panelGrid id="display2" cellpadding="4">
 				

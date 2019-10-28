@@ -107,7 +107,7 @@
 			        </p:column>
 			        
 			        <p:column id="opcoesColumnId" headerText="Opções" style="text-align:left" exportable="false" priority="6">
-		              <p:commandButton id="selectButtonId" update=":form02Id:display01Id" oncomplete="equipamentoDialog.show()" icon="fa fa-pencil" title="Detalhes/Editar" style="width:40px">
+		              <p:commandButton id="selectButtonId" update=":form02Id:display01Id" oncomplete="PF('equipamentoDialog').show()" icon="fa fa-pencil" title="Detalhes/Editar" style="width:40px">
 		                  <f:setPropertyActionListener value="#{equipamento}" target="#{equipamentoMBean.equipamento}" />
 		              </p:commandButton>
 			           <p:commandButton id="deleteButtonId" update=":form01Id:dataTable01Id" icon="fa fa-trash" title="Excluir" onclick="dlg1.show()" style="width:40px">
@@ -121,15 +121,23 @@
 
 		  </h:form>
 
-			<p:dialog header="Detalhes do Equipamento" widgetVar="equipamentoDialog" resizable="false" id="equipamentoDlgId" showEffect="fade" hideEffect="explode" modal="false" width="775" style="font-size:16px" position="center">
+			<p:dialog header="Detalhes" 
+					  widgetVar="equipamentoDialog" resizable="false" 
+					  id="equipamentoDlgId" 
+					  showEffect="fade" hideEffect="explode" 
+					  modal="true"
+					  closeOnEscape="true"
+					  responsive="true"
+					  >
 			
 				<h:form id="form02Id">
 				
-					<p:panel id="panel2">
+					<h:panelGroup id="panel2" layout="block" styleClass="ui-fluid">
 					
 						<p:messages id="msgs2" autoUpdate="true" globalOnly="true" />
 						
-						<p:panelGrid id="display01Id" columns="2" cellpadding="6" style="font-size:12px; font-family:Verdana">
+						<p:panelGrid id="display01Id" columns="2" cellpadding="6"
+									 layout="grid">
 						
 							<p:outputLabel value="Departamento:" style="font-weight: bold"/>
 							<p:inplace id="departamentoInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" label="#{equipamentoMBean.equipamento.departamento.nome}">
@@ -230,7 +238,7 @@
 					   <p:separator/>
 					   
 						<p:outputLabel value="Para alterar algum dado basta clicar em cima."/>
-					</p:panel>
+					</h:panelGroup>
 				</h:form>
 			</p:dialog>
 
