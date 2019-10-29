@@ -19,7 +19,7 @@
 
 	   	<h:form id="form01Id" style="position:absolute;width:100%">
 					
-	   	  <p:panel id="panel01Id" header="Lista de Equipamentos" toggleable="true" style="width:auto; font-size:14px;">
+	   	  <p:panel id="panel01Id" header="Lista de Equipamentos" toggleable="true" style="width:auto">
 	   	  
 	   	  		<p:toolbar style="margin: 10px 0;">
 	   	  		
@@ -46,7 +46,7 @@
 	                  </h:commandLink>
 
 	                  <p:commandButton id="btnRetiradaEquipamento"
-										onclick="retiradaEquipamentoDlg.show()"
+									   onclick="retiradaEquipamentoDlg.show()"
 	                                   title="Emitir o termo de retirada dos equipamentos listados"
 	                                   update=":retiradaEquipamentoForm"
 	                                   style="width:50%;height:32%"
@@ -70,43 +70,43 @@
               				reflow="true"
               				paginator="true" rows="10" paginatorPosition="bottom" >
               
-			        <p:column headerText="Departamento" id="nomeColumnId" filterBy="#{equipamento.departamento.nome}" sortBy="#{equipamento.departamento.nome}" style="text-align:left" priority="6">
+			        <p:column headerText="Departamento:" id="nomeColumnId" filterBy="#{equipamento.departamento.nome}" sortBy="#{equipamento.departamento.nome}" style="text-align:left" priority="6"  >
 			           <p:outputLabel value="#{equipamento.departamento.nome}" />
 			        </p:column>
 			        
-			        <p:column headerText="Entidade" id="entidadeColumnId" filterBy="#{equipamento.entidade.label}" sortBy="#{equipamento.entidade.label}" style="text-align:left" priority="6">
+			        <p:column headerText="Entidade:" id="entidadeColumnId" filterBy="#{equipamento.entidade.label}" sortBy="#{equipamento.entidade.label}" style="text-align:left" priority="6">
 			           <p:outputLabel value="#{equipamento.entidade.label}" />
 			        </p:column>
 			        
-			        <p:column headerText="Funcionário" id="funcionarioColumnId" filterBy="#{equipamento.funcionario.nome}" sortBy="#{equipamento.funcionario.nome}" style="text-align:left" priority="3">
+			        <p:column headerText="Funcionário:" id="funcionarioColumnId" filterBy="#{equipamento.funcionario.nome}" sortBy="#{equipamento.funcionario.nome}" style="text-align:left" priority="3">
 			           <p:outputLabel value="#{equipamento.funcionario.nome}" />
 			        </p:column>
 			        
-			        <p:column headerText="Série" id="NumSerieColumnId" filterBy="#{equipamento.numeroDeSerie}" sortBy="#{equipamento.numeroDeSerie}" style="text-align:left" priority="6">
+			        <p:column headerText="Série:" id="NumSerieColumnId" filterBy="#{equipamento.numeroDeSerie}" sortBy="#{equipamento.numeroDeSerie}" style="text-align:left" priority="6">
 			           <p:outputLabel value="#{equipamento.numeroDeSerie}" />
 			        </p:column>
 			        
-			        <p:column headerText="Patrimônio" id="numPatrocinioColumnId" filterBy="#{equipamento.numeroDoPatrimonio}" sortBy="#{equipamento.numeroDoPatrimonio}" style="text-align:left" priority="3">
+			        <p:column headerText="Patrimônio:" id="numPatrocinioColumnId" filterBy="#{equipamento.numeroDoPatrimonio}" sortBy="#{equipamento.numeroDoPatrimonio}" style="text-align:left" priority="3">
 			           <p:outputLabel value="#{equipamento.numeroDoPatrimonio}" />
 			        </p:column>
 			        
-			        <p:column headerText="Tipo" id="tipoColumnId" filterBy="#{equipamento.tipo.label}" sortBy="#{equipamento.tipo.label}" style="text-align:left" priority="6">
+			        <p:column headerText="Tipo:" id="tipoColumnId" filterBy="#{equipamento.tipo.label}" sortBy="#{equipamento.tipo.label}" style="text-align:left" priority="6">
 			           <p:outputLabel value="#{equipamento.tipo.label}" style="text-align:right" />
 			        </p:column>
 			        
-			        <p:column headerText="Marca" id="marcaColumnId" filterBy="#{equipamento.marca}" sortBy="#{equipamento.marca}" style="text-align:left" priority="6">
+			        <p:column headerText="Marca:" id="marcaColumnId" filterBy="#{equipamento.marca}" sortBy="#{equipamento.marca}" style="text-align:left" priority="6">
 			           <p:outputLabel value="#{equipamento.marca}" style="text-align:right"/>
 			        </p:column>
 			        
-			        <p:column headerText="Modelo" id="modeloColumnId" filterBy="#{equipamento.modelo}" sortBy="#{equipamento.modelo}" style="text-align:left" priority="6">
+			        <p:column headerText="Modelo:" id="modeloColumnId" filterBy="#{equipamento.modelo}" sortBy="#{equipamento.modelo}" style="text-align:left" priority="6">
 			           <p:outputLabel value="#{equipamento.modelo}" style="text-align:right"/>
 			        </p:column>
 			        
-			        <p:column headerText="Status" id="statusColumnId" filterBy="#{equipamento.status.label}" sortBy="#{equipamento.status.label}" style="text-align:left" priority="6">
+			        <p:column headerText="Status:" id="statusColumnId" filterBy="#{equipamento.status.label}" sortBy="#{equipamento.status.label}" style="text-align:left" priority="6">
 			           <p:outputLabel value="#{equipamento.status.label}" style="text-align:right" />
 			        </p:column>
 			        
-			        <p:column id="opcoesColumnId" headerText="Opções" style="text-align:left" exportable="false" priority="6">
+			        <p:column id="opcoesColumnId" headerText="Opções:" style="text-align:left" exportable="false" priority="3">
 		             
 		              <p:commandButton id="selectButtonId" update=":form02Id:display01Id" oncomplete="PF('equipamentoDialog').show()" icon="fa fa-pencil" title="Detalhes/Editar" style="width:40px">
 		                  <f:setPropertyActionListener value="#{equipamento}" target="#{equipamentoMBean.equipamento}" />
@@ -254,7 +254,7 @@
                       width="550"
                       height="125"
                       position="center"
-                      style="font-size:14px; font-family:Verdana">
+                     >
 		  		     
 		  		      <h:form id="retiradaEquipamentoForm">
 		  		       
@@ -287,18 +287,22 @@
         			  responsive="true"
         			  closeOnEscape="true"
         			  >
+        			  
+       			<h:panelGroup id="panelTest" layout="block" styleClass="ui-fluid">
 	  			
-	  			<p:panelGrid id="display02Id" cellpadding="4" columns="1" layout="grid">
-	  		  		
-	  		  		<p:outputLabel value="Deseja mesmo excluir este registro?"/>
-	  		  		
-	  		  		<f:facet name="footer">
-               			<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" action="#{equipamentoMBean.remover()}" style="width:49%; height:30px"/>
-	  		  			<p:spacer width="1%"/>
-	  		  			<p:commandButton id="decline" value="Não" onclick="PF('dlg1').hide()" type="button" style="width:48%; height:30px"/>
-              		</f:facet>
-              		
-	  	  		</p:panelGrid>
+		  			<p:panelGrid id="display02Id" cellpadding="4" columns="1" layout="grid">
+		  		  		
+		  		  		<p:outputLabel value="Deseja mesmo excluir este registro?"/>
+		  		  		
+		  		  		<f:facet name="footer">
+	               			<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" action="#{equipamentoMBean.remover()}" style="width:49%; height:30px"/>
+		  		  			<p:spacer width="1%"/>
+		  		  			<p:commandButton id="decline" value="Não" onclick="PF('dlg1').hide()" type="button" style="width:48%; height:30px"/>
+	              		</f:facet>
+	              		
+		  	  		</p:panelGrid>
+	  	  		
+	  	  		</h:panelGroup>
 	  	  		
 		   </p:dialog>
 

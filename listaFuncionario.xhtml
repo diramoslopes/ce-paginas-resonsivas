@@ -44,11 +44,13 @@
 			        	</p:column>
 			        	
 				        <p:column id="opcoesColumnId" headerText="Opções:" style="text-align:left;">
-			              <p:commandButton id="selectButtonId" update=":form02Id:display01Id" oncomplete="PF('funcionarioDialog').show()" icon="fa fa-pencil" title="Detalhes/Editar" style="width:50px">
+			              <p:commandButton id="selectButtonId" update=":form02Id:display01Id" oncomplete="PF('funcionarioDialog').show()" icon="fa fa-pencil" title="Detalhes/Editar" style="width:20%">
 			                  <f:setPropertyActionListener value="#{funcionario}" target="#{funcionarioMBean.funcionario}" />
 			              </p:commandButton>
 				           
-				           <p:commandButton id="deleteButtonId" update=":form01Id:dataTable01Id" icon="fa fa-trash" title="Excluir" onclick="dlg1.show()" style="width:50px">
+				           <p:spacer width="2%"/>
+				           
+				           <p:commandButton id="deleteButtonId" update=":form01Id:dataTable01Id" icon="fa fa-trash" title="Excluir" onclick="PF('dlg1').show()" style="width:20%">
 				               <f:setPropertyActionListener value="#{funcionario}" target="#{funcionarioMBean.funcionario}" />
 				           </p:commandButton>
 				        </p:column>
@@ -74,8 +76,7 @@
 						
 						<p:panelGrid id="display01Id" cellpadding="6" columns="2"
 									 layout="grid" styleClass="panelgrid-noborder"
-									 columnClasses="ui-grid-col-5, ui-grid-col-7"
-									 >
+									 columnClasses="ui-grid-col-5, ui-grid-col-7">
 					   
 						   	<p:outputLabel value="Nome:" style="font-weight: bold"/>
 						      <p:inplace id="nomeInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração">
@@ -110,15 +111,34 @@
 				</h:form>
 			</p:dialog>
 
-			<p:dialog id="basicDialogId" header="Atenção" widgetVar="dlg1" resizable="false" showEffect="fade" hideEffect="fade" modal="false" width="500" height="95" position="center">
-	  			<p:panelGrid id="display02Id" cellpadding="4">
+			<p:dialog id="basicDialogId" 
+					  header="Atenção" 
+					  widgetVar="dlg1" resizable="false" 
+					  showEffect="fade" hideEffect="fade" 
+					  modal="true" 
+					  closeOnEscape="true"
+					  responsive="true">
+					  
+			<h:panelGroup id="panelTest" layout="block" styleClass="ui-fluid">
+			
+	  			<p:panelGrid id="display02Id" cellpadding="4" 
+	  						 columns="1"
+	  						 layout="grid"
+	  						 styleClass="panelgrid-noborder">
+	  			
 		  		  		<p:outputLabel value="Deseja mesmo excluir este registro?" />
 		  		  		<p:outputLabel value="ATENÇÃO, os equipamentos deste funcionário também serão excluídos!" />
+		  		  		
 		  		  		<f:facet name="footer">
-	              		 	<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" action="#{funcionarioMBean.remover()}" style="width:50px; height:30px"/>
-		  		  			<p:commandButton id="decline" value="Não" onclick="dlg1.hide()" type="button" style="font-size:12px; width:50px; height:30px"/>
+	              		 	<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" action="#{funcionarioMBean.remover()}" style="width:48%; height:30px"/>
+	              		 	<p:spacer width="1%"/>
+		  		  			<p:commandButton id="decline" value="Não" onclick="PF('dlg1').hide()" type="button" style="width:49%; height:30px"/>
 	             		</f:facet>
+	             		
 	  	  		</p:panelGrid>
+	  	  		
+	  	  	</h:panelGroup>
+	  	  	
 			</p:dialog>
 
 		</ui:define>
