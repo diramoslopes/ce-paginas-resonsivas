@@ -71,7 +71,7 @@
 
 		</h:form>
 
-		<p:dialog header="Detalhes do Departamento"
+		<p:dialog header="Detalhes"
 		          widgetVar="departamentoDialog" 
 		          resizable="false"
 		          id="departamentoDlgId" 
@@ -127,11 +127,19 @@
 			
 		</p:dialog>
 
-		<p:dialog id="basicDialogId" header="Atenção ao excluir"
-			widgetVar="dlg1" resizable="false" showEffect="fade"
-			hideEffect="explode" modal="true">
-			
-			<p:panelGrid id="display2" cellpadding="4">
+		<p:dialog id="basicDialogId" header="Atenção"
+				  widgetVar="dlg1" resizable="false" showEffect="fade"
+			      hideEffect="explode" 
+			      modal="true"
+			      closeOnEscape="true"
+			      responsive="true">
+			      
+		<h:panelGroup id="panelTest" layout="block" styleClass="ui-fluid">
+		
+			<p:panelGrid id="display2" columns="1" cellpadding="4" 
+						 layout="grid" 
+						 columnClasses="ui-grid-col-12"
+						 styleClass="panelgrid-noborder">
 				
 				<p:outputLabel value="Deseja mesmo excluir este registro?" />
 				<p:outputLabel value="ATENÇÃO, os funcionários e equipamentos deste departamento também serão excluídos!" />
@@ -140,13 +148,15 @@
 				
 					<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()"
 						action="#{departamentoMBean.remover()}"
-						style="width:50px; height:30px" />
-						
-					<p:commandButton id="decline" value="Não" onclick="dlg1.hide()"
-						type="button" style="width:50px; height:30px" />
+						style="width:48%; height:30px" />
+					<p:spacer width="1%"/>
+					<p:commandButton id="decline" value="Não" onclick="PF('dlg1').hide()"
+						type="button" style="width:50%; height:30px" />
 						
 				</f:facet>
+				
 			</p:panelGrid>
+		</h:panelGroup>
 			
 		</p:dialog>
 
