@@ -107,12 +107,14 @@
 			        </p:column>
 			        
 			        <p:column id="opcoesColumnId" headerText="Opções" style="text-align:left" exportable="false" priority="6">
+		             
 		              <p:commandButton id="selectButtonId" update=":form02Id:display01Id" oncomplete="PF('equipamentoDialog').show()" icon="fa fa-pencil" title="Detalhes/Editar" style="width:40px">
 		                  <f:setPropertyActionListener value="#{equipamento}" target="#{equipamentoMBean.equipamento}" />
 		              </p:commandButton>
-			           <p:commandButton id="deleteButtonId" update=":form01Id:dataTable01Id" icon="fa fa-trash" title="Excluir" onclick="dlg1.show()" style="width:40px">
-			               <f:setPropertyActionListener value="#{equipamento}" target="#{equipamentoMBean.equipamento}" />
-			           </p:commandButton>
+		              
+		              <p:commandButton id="deleteButtonId" update=":form01Id:dataTable01Id" icon="fa fa-trash" title="Excluir" onclick="PF('dlg1').show()" style="width:40px">
+		              	 <f:setPropertyActionListener value="#{equipamento}" target="#{equipamentoMBean.equipamento}" />
+		              </p:commandButton>
 		           </p:column>
 		           
 			     </p:dataTable>
@@ -276,14 +278,28 @@
 		  		      
 		         </p:dialog>
 
-        	<p:dialog id="basicDialogId" header="Atenção" widgetVar="dlg1" resizable="false" showEffect="fade" hideEffect="explode" modal="false" width="400" height="70" position="center">
-	  			<p:panelGrid id="display02Id" cellpadding="4" style="font-size:12px; font-family:Verdana">
+        	<p:dialog id="basicDialogId" 
+        			  header="Atenção" 
+        			  widgetVar="dlg1" 
+        			  resizable="false" 
+        			  showEffect="fade" hideEffect="explode" 
+        			  modal="true" 
+        			  responsive="true"
+        			  closeOnEscape="true"
+        			  >
+	  			
+	  			<p:panelGrid id="display02Id" cellpadding="4" columns="1" layout="grid">
+	  		  		
 	  		  		<p:outputLabel value="Deseja mesmo excluir este registro?"/>
+	  		  		
 	  		  		<f:facet name="footer">
-               			<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" action="#{equipamentoMBean.remover()}" style="font-size:12px; width:50px; height:30px"/>
-	  		  			<p:commandButton id="decline" value="Não" onclick="dlg1.hide()" type="button" style="font-size:12px; width:50px; height:30px"/>
+               			<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" action="#{equipamentoMBean.remover()}" style="width:49%; height:30px"/>
+	  		  			<p:spacer width="1%"/>
+	  		  			<p:commandButton id="decline" value="Não" onclick="PF('dlg1').hide()" type="button" style="width:48%; height:30px"/>
               		</f:facet>
+              		
 	  	  		</p:panelGrid>
+	  	  		
 		   </p:dialog>
 
 	</ui:define>
