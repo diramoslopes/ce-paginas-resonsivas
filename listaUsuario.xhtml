@@ -98,20 +98,18 @@
 							columnClasses="ui-grid-col-5, ui-grid-col-7">
 					
 							<p:outputLabel value="Funcionário:" for="funcionario" style="font-weight: bold"/>
-							<p:selectOneMenu id="funcionario" value="#{usuarioMBean.usuario.funcionario.codigo}" required="true" requiredMessage="É necessário selecionar um funcionário" style="width:80%">
+							<p:selectOneMenu id="funcionario" value="#{usuarioMBean.usuario.funcionario.codigo}" required="true" requiredMessage="É necessário selecionar um funcionário" style="width:100%">
 								<f:selectItems value="#{selectOneMenuMBean.listaFuncionarios}"/>
 							</p:selectOneMenu>
 							
 							<p:outputLabel value="Login:" for="login" style="font-weight: bold"/>
-			  				<p:inputText id="login" value="#{usuarioMBean.usuario.login}"  required="true" requiredMessage="É necessário informar o login do usuário" style="width:80%"/>
+			  				<p:inputText id="login" value="#{usuarioMBean.usuario.login}"  required="true" requiredMessage="É necessário informar o login do usuário" style="width:100%"/>
 			  				
 			  				<p:outputLabel value="Senha:" for="senha1" style="font-weight: bold"/>
-			            	<p:password id="senha1" value="#{usuarioMBean.usuario.senha}" match="senha2" validatorMessage="As senhas informadas são diferentes" style="width:80%"/>
+			            	<p:password id="senha1" value="#{usuarioMBean.usuario.senha}" match="senha2" validatorMessage="As senhas informadas são diferentes" style="width:100%"/>
 			            	
 			            	<p:outputLabel value="Confirma a senha:" for="senha2" style="font-weight: bold"/>
-			            	<p:password id="senha2" value="#{usuarioMBean.usuario.senha}" style="width:80%"/>
-			            	
-			            	
+			            	<p:password id="senha2" value="#{usuarioMBean.usuario.senha}" style="width:100%"/>
 			            	
 		  				    <f:facet name="footer">
 					  				<p:commandButton icon="fa fa-floppy-o" update=":form02Id:display01Id,:form01Id:dataTable01Id" value="Salvar" action="#{usuarioMBean.editar()}" oncomplete="handleEdita(xhr, status, args)" title="Salvar" style="width:48%;"/>
@@ -177,14 +175,23 @@
 			
 		</p:dialog>
 
-		<p:dialog id="basicDialogId" header="Atenção" widgetVar="dlg1" resizable="false" showEffect="fade" hideEffect="fade" modal="false" width="500" height="80" position="center">
-	  		<p:panelGrid id="display02Id" cellpadding="4" style="font-size:12px; font-family:Verdana">
+		<p:dialog id="basicDialogId" header="Atenção" widgetVar="dlg1" 
+				  resizable="false" showEffect="fade" hideEffect="explode" 
+				  modal="true" closeOnEscape="true" responsive="true">
+		
+	  		<p:panelGrid id="display02Id" cellpadding="4" columns="1" layout="grid" 
+	  					 styleClass="panelgrid-noborder">
+	  		
 	  	  		<p:outputLabel value="Deseja mesmo excluir este registro?" />
+	  	  		
 	  	  		<f:facet name="footer">
-	              	<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" update=":form01Id:dataTable01Id" action="#{usuarioMBean.remover()}" style="font-size:12px; width:50px; height:30px"/>
-		  	 		<p:commandButton id="decline" value="Não" onclick="dlg1.hide()" type="button" style="font-size:12px; width:50px; height:30px"/>
+	              	<p:commandButton id="confirm" value="Sim" oncomplete="dlg1.hide()" update=":form01Id:dataTable01Id" action="#{usuarioMBean.remover()}" style="width:49%"/>
+	              	<p:spacer width="1%"/>
+		  	 		<p:commandButton id="decline" value="Não" onclick="PF('dlg1').hide()" type="button" style="width:48%"/>
             	</f:facet>
+            	
 	  		</p:panelGrid>
+	  		
 		</p:dialog>
 
 	</ui:define>
