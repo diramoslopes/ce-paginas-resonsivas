@@ -64,49 +64,57 @@
               				scrollable="true" 
               				scrollHeight="600" 
               				resizableColumns="true" 
-              				style="font-size:12px;"
               				selectionMode="single" selection="#{equipamentoMBean.equipamento}"
               				rowKey="#{equipamento.codigo}" 
               				reflow="true"
               				paginator="true" rows="10" paginatorPosition="bottom" >
               
-			        <p:column headerText="Departamento:" id="nomeColumnId" filterBy="#{equipamento.departamento.nome}" sortBy="#{equipamento.departamento.nome}" style="text-align:left" priority="6"  >
+			        <p:column headerText="Departamento" id="nomeColumnId" filterBy="#{equipamento.departamento.nome}" sortBy="#{equipamento.departamento.nome}" 
+			        		  style="text-align:left; width:20%" priority="6"  >
 			           <p:outputLabel value="#{equipamento.departamento.nome}" />
 			        </p:column>
 			        
-			        <p:column headerText="Entidade:" id="entidadeColumnId" filterBy="#{equipamento.entidade.label}" sortBy="#{equipamento.entidade.label}" style="text-align:left" priority="6">
+			        <p:column headerText="Entidade:" id="entidadeColumnId" filterBy="#{equipamento.entidade.label}" sortBy="#{equipamento.entidade.label}" 
+			        		  style="text-align:left; width:20%" priority="6">
 			           <p:outputLabel value="#{equipamento.entidade.label}" />
 			        </p:column>
 			        
-			        <p:column headerText="Funcionário:" id="funcionarioColumnId" filterBy="#{equipamento.funcionario.nome}" sortBy="#{equipamento.funcionario.nome}" style="text-align:left" priority="3">
+			        <p:column headerText="Funcionário:" id="funcionarioColumnId" filterBy="#{equipamento.funcionario.nome}" sortBy="#{equipamento.funcionario.nome}" 
+			        		 style="text-align:left; width:20%" priority="3">
 			           <p:outputLabel value="#{equipamento.funcionario.nome}" />
 			        </p:column>
 			        
-			        <p:column headerText="Série:" id="NumSerieColumnId" filterBy="#{equipamento.numeroDeSerie}" sortBy="#{equipamento.numeroDeSerie}" style="text-align:left" priority="6">
-			           <p:outputLabel value="#{equipamento.numeroDeSerie}" />
+			        <p:column headerText="Série:" id="NumSerieColumnId" filterBy="#{equipamento.numeroDeSerie}" sortBy="#{equipamento.numeroDeSerie}" 
+			        		 style="text-align:left; width:20%" priority="6">
+			           <p:outputLabel value="#{equipamento.numeroDeSerie}"/>
 			        </p:column>
 			        
-			        <p:column headerText="Patrimônio:" id="numPatrocinioColumnId" filterBy="#{equipamento.numeroDoPatrimonio}" sortBy="#{equipamento.numeroDoPatrimonio}" style="text-align:left" priority="3">
+			        <p:column headerText="Patrimônio:" id="numPatrocinioColumnId" filterBy="#{equipamento.numeroDoPatrimonio}" sortBy="#{equipamento.numeroDoPatrimonio}" 
+			        		 style="text-align:left; width:20%" priority="3">
 			           <p:outputLabel value="#{equipamento.numeroDoPatrimonio}" />
 			        </p:column>
 			        
-			        <p:column headerText="Tipo:" id="tipoColumnId" filterBy="#{equipamento.tipo.label}" sortBy="#{equipamento.tipo.label}" style="text-align:left" priority="6">
+			        <p:column headerText="Tipo:" id="tipoColumnId" filterBy="#{equipamento.tipo.label}" sortBy="#{equipamento.tipo.label}" 
+			        		 style="text-align:left; width:20%" priority="6">
 			           <p:outputLabel value="#{equipamento.tipo.label}" style="text-align:right" />
 			        </p:column>
 			        
-			        <p:column headerText="Marca:" id="marcaColumnId" filterBy="#{equipamento.marca}" sortBy="#{equipamento.marca}" style="text-align:left" priority="6">
+			        <p:column headerText="Marca:" id="marcaColumnId" filterBy="#{equipamento.marca}" sortBy="#{equipamento.marca}" 
+			        		 style="text-align:left; width:20%" priority="6">
 			           <p:outputLabel value="#{equipamento.marca}" style="text-align:right"/>
 			        </p:column>
 			        
-			        <p:column headerText="Modelo:" id="modeloColumnId" filterBy="#{equipamento.modelo}" sortBy="#{equipamento.modelo}" style="text-align:left" priority="6">
+			        <p:column headerText="Modelo:" id="modeloColumnId" filterBy="#{equipamento.modelo}" sortBy="#{equipamento.modelo}" 
+			        		 style="text-align:left; width:20%" priority="6">
 			           <p:outputLabel value="#{equipamento.modelo}" style="text-align:right"/>
 			        </p:column>
 			        
-			        <p:column headerText="Status:" id="statusColumnId" filterBy="#{equipamento.status.label}" sortBy="#{equipamento.status.label}" style="text-align:left" priority="6">
+			        <p:column headerText="Status:" id="statusColumnId" filterBy="#{equipamento.status.label}" sortBy="#{equipamento.status.label}" 
+			        		 style="text-align:left; width:20%" priority="6">
 			           <p:outputLabel value="#{equipamento.status.label}" style="text-align:right" />
 			        </p:column>
 			        
-			        <p:column id="opcoesColumnId" headerText="Opções:" style="text-align:left" exportable="false" priority="3">
+			        <p:column id="opcoesColumnId" headerText="Opções:" style="text-align:left; width:20%" exportable="false" priority="3">
 		             
 		              <p:commandButton id="selectButtonId" update=":form02Id:display01Id" oncomplete="PF('equipamentoDialog').show()" icon="fa fa-pencil" title="Detalhes/Editar" style="width:40px">
 		                  <f:setPropertyActionListener value="#{equipamento}" target="#{equipamentoMBean.equipamento}" />

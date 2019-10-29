@@ -16,23 +16,15 @@
 
 					<p:panel id="panel" header="Cadastro de Equipamentos" toggleable="true" style="text-align:center">
 					
-					<p:toolbar style="margin: 10px 0;" >
-		   	  		
-						<p:toolbarGroup align="right">
-							<p:commandButton value="Lista de equipamentos" action="#{equipamentoMBean.novo()}"/>
-						</p:toolbarGroup>
-						
-					</p:toolbar>
-					
 					<p:messages id="msgs" autoUpdate="true"/>
 						
 						<div class="ui-fluid">
 						
-							<p:panelGrid columns="4" layout="grid" style="font-size:14px"
+							<p:panelGrid columns="4" layout="grid"
 										 columnClasses="ui-grid-col-2, ui-grid-col-4 ,ui-grid-col-2, ui-grid-col-4"
 										 styleClass="panelgrid-noborder" >
 										 
-								<p:outputLabel value="Departamento:" for="departamento"/>
+								<p:outputLabel value="Departamento:" for="departamento" style="font-weight: bold"/>
 								<p:selectOneMenu id="departamento" value="#{equipamentoMBean.equipamento.departamento.codigo}" valueChangeListener="#{selectOneMenuMBean.setListaFuncionariosPorDepartamento}" immediate="true" 
 									required="true" requiredMessage="É necessário selecionar um departamento" style="width: 80%">
 									<f:selectItem itemLabel="" itemValue="" />
@@ -40,63 +32,63 @@
 									<p:ajax event="change" update="funcionario" />
 								</p:selectOneMenu>
 								
-								<p:outputLabel value="Entidade:" for="entidade"/>
+								<p:outputLabel value="Entidade:" for="entidade" style="font-weight: bold"/>
 								<p:selectOneMenu id="entidade" value="#{equipamentoMBean.equipamento.entidade}" required="true" requiredMessage="É necessário selecionar uma entidade" style="width: 80%">
 									<f:selectItem itemLabel="" itemValue="" />
 									<f:selectItems value="#{selectOneMenuMBean.tipoEntidadeLabels}"/>
 								</p:selectOneMenu>
 								
-								<p:outputLabel value="Funcionário:" for="funcionario"/>
+								<p:outputLabel value="Funcionário:" for="funcionario" style="font-weight: bold"/>
 								<p:selectOneMenu id="funcionario" value="#{equipamentoMBean.equipamento.funcionario.codigo}" required="true" requiredMessage="É necessário selecionar um funcionário" style="width: 80%">
 									<f:selectItem itemLabel="" itemValue="" />
 									<f:selectItems value="#{selectOneMenuMBean.funcionarios}"/>
 								</p:selectOneMenu>
 								
-								<p:outputLabel value="Série:" for="numeroDeSerie"/>
+								<p:outputLabel value="Série:" for="numeroDeSerie" style="font-weight: bold"/>
 								<p:inputText id="numeroDeSerie" value="#{equipamentoMBean.equipamento.numeroDeSerie}" size="50" validatorMessage="O número de série deve ter entre 4 e 30 caractéres" style="width: 80%">
 									<f:validateLength minimum="4" maximum="30" />
 								</p:inputText>
 								
-								<p:outputLabel value="Patrimônio:" for="numeroDoPatrimonio"/>
+								<p:outputLabel value="Patrimônio:" for="numeroDoPatrimonio" style="font-weight: bold"/>
 								<p:inputText id="numeroDoPatrimonio" value="#{equipamentoMBean.equipamento.numeroDoPatrimonio}" validatorMessage="O número de patrimônio deve ter entre 3 e 6 caractéres" style="width: 80%">
 									<f:validateLength minimum="3" maximum="6"/>
 								</p:inputText>
 								
-								<p:outputLabel value="Tipo:" for="tipo"/>
+								<p:outputLabel value="Tipo:" for="tipo" style="font-weight: bold"/>
 								<p:selectOneMenu id="tipo" value="#{equipamentoMBean.equipamento.tipo}" required="true" requiredMessage="É necessário selecionar um tipo" style="width: 80%"> 
 									<f:selectItem itemLabel="" itemValue="" />
 									<f:selectItems value="#{selectOneMenuMBean.tipoEquipamentoLabels}"/>
 								</p:selectOneMenu>
 								
-								<p:outputLabel value="Marca:" for="marca"/>
+								<p:outputLabel value="Marca:" for="marca" style="font-weight: bold"/>
 								<p:inputText id="marca" value="#{equipamentoMBean.equipamento.marca}" validatorMessage="A marca deve ter entre 2 e 30 caractéres" style="width: 80%">
 									<f:validateLength minimum="2" maximum="30"/>
 								</p:inputText>
 		
-								<p:outputLabel value="Modelo:" for="modelo"/>
+								<p:outputLabel value="Modelo:" for="modelo" style="font-weight: bold"/>
 								<p:inputText id="modelo" value="#{equipamentoMBean.equipamento.modelo}" size="50" validatorMessage="O modelo deve ter entre 2 e 60 caractéres" style="width: 80%">
 									<f:validateLength minimum="2" maximum="60"/>
 								</p:inputText>
 								
-								<p:outputLabel value="Status:" for="status"/>
+								<p:outputLabel value="Status:" for="status" style="font-weight: bold"/>
 								<p:selectOneMenu id="status" value="#{equipamentoMBean.equipamento.status}" required="true" requiredMessage="É necessário selecionar um status" style="width: 80%" >
 									<f:selectItem itemLabel="" itemValue="" />
 									<f:selectItems value="#{selectOneMenuMBean.tipoStatusLabels}"/>
 								</p:selectOneMenu>
 								
-								<p:outputLabel value="Sistema Operacional:" for="sistemaOperacional" />
+								<p:outputLabel value="Sistema Operacional:" for="sistemaOperacional" style="font-weight: bold"/>
 								<p:selectOneMenu id="sistemaOperacional" value="#{equipamentoMBean.equipamento.sistemaOperacional}" required="true" requiredMessage="É necessário selecionar um SO" style="width: 80%" >
 									<f:selectItem itemLabel="" itemValue="" />
 									<f:selectItems value="#{selectOneMenuMBean.tipoSistemaOperacionalLabels}"/>
 								</p:selectOneMenu>
 								
-								<p:outputLabel value="Pacote Office:" for="pacoteOffice" />
+								<p:outputLabel value="Pacote Office:" for="pacoteOffice" style="font-weight: bold"/>
 								<p:selectOneMenu id="pacoteOffice" value="#{equipamentoMBean.equipamento.pacoteOffice}" required="true" requiredMessage="É necessário selecionar um Pacote Office" style="width: 80%" >
 									<f:selectItem itemLabel="" itemValue="" />
 									<f:selectItems value="#{selectOneMenuMBean.tipoPacoteOfficeLabels}"/>
 								</p:selectOneMenu>
 								
-								<p:outputLabel value="Observação:" for="observacao" />
+								<p:outputLabel value="Observação:" for="observacao" style="font-weight: bold"/>
 								<p:inputTextarea id="observacao" value="#{equipamentoMBean.equipamento.observacao}" style="width:80%;height:20%;" cols="450"/>
 								
 								<p:outputLabel  />
