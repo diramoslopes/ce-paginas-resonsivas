@@ -19,18 +19,18 @@
 										columnClasses="ui-grid-col-2, ui-grid-col-4 ,ui-grid-col-2, ui-grid-col-4"
 										styleClass="panelgrid-noborder">
 							
-								<p:outputLabel value="Nome:" for="nome"/>
+								<p:outputLabel value="Nome:" for="nome" style="font-weight: bold"/>
 								<p:inputText id="nome" value="#{funcionarioMBean.funcionario.nome}" required="true" requiredMessage="O campo nome é obrigatório" validatorMessage="O nome do funcionário deve ter entre 2 e 60 caractéres"
 												style="width:80%">
 									<f:validateLength minimum="2" maximum="60"/>
 								</p:inputText>
 		
-								<h:outputText value="Ramal: "/>
+								<p:outputLabel value="Ramal:" for="ramal" style="font-weight: bold"/>
 								<p:inputText id="ramal" value="#{funcionarioMBean.funcionario.ramal}" validatorMessage="O ramal deve ter 4 caractéres" style="width:80%">
 									<f:validateLength minimum="4" maximum="4" />
 								</p:inputText>
 		
-								<p:outputLabel value="Departamento:" for="departamento"/>
+								<p:outputLabel value="Departamento:" for="departamento" style="font-weight: bold"/>
 								<p:selectOneMenu id="departamento" value="#{funcionarioMBean.funcionario.departamento.codigo}" required="true" requiredMessage="É necessário selecionar um departamento" style="width:80%" >
 									<f:selectItem itemLabel="" itemValue="" />
 									<f:selectItems value="#{selectOneMenuMBean.listaDepartamentos}"/>
