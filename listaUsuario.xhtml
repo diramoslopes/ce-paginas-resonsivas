@@ -162,7 +162,7 @@
 	            		<p:password id="senha2" value="#{usuarioMBean.usuario.senha}" required="true" requiredMessage="É necessário confirmar a senha" style="width:100%"/>
 	            		
 	            		<f:facet name="footer">
-				  				<p:commandButton icon="fa fa-floppy-o" update=":form03Id:display03Id,:form01Id:dataTable01Id" value="Salvar" actionListener="#{usuarioMBean.salvar}" title="Salvar" style="width:48%"/>
+				  				<p:commandButton icon="fa fa-floppy-o" update="@form :form03Id:display03Id,:form01Id:dataTable01Id" value="Salvar" actionListener="#{usuarioMBean.salvar}" title="Salvar" style="width:48%"/>
 				  				<p:spacer width="1%"/>
 				  				<p:commandButton icon="fa fa-times " value="Fechar" onclick="novoUsuarioDialog.hide()" immediate="true" title="Fechar" style="width:48%"/>
 			  			</f:facet>
