@@ -27,7 +27,9 @@
 				<p:toolbar style="margin: 10px 0;">
 				
 					<p:toolbarGroup align="right">
-						<p:commandButton value="Novo usuario" action="#{usuarioMBean.novo()}" onclick="PF('novoUsuarioDialog').show()"/>
+						<p:commandButton value="Novo usuario" action="#{usuarioMBean.novo()}" onclick="PF('novoUsuarioDialog').show()">
+							<p:resetInput target="novoUsuarioDlgId"/>
+						</p:commandButton>
 					</p:toolbarGroup>
 				
 				</p:toolbar>

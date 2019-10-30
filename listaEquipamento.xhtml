@@ -69,7 +69,7 @@
               				reflow="true"
               				paginator="true" rows="10" paginatorPosition="bottom" >
               
-			        <p:column headerText="Departamento" id="nomeColumnId" filterBy="#{equipamento.departamento.nome}" sortBy="#{equipamento.departamento.nome}" 
+			        <p:column headerText="Departamento:" id="nomeColumnId" filterBy="#{equipamento.departamento.nome}" sortBy="#{equipamento.departamento.nome}" 
 			        		 styleClass="primeiraClass" style="text-align:left" priority="6"  >
 			           <p:outputLabel value="#{equipamento.departamento.nome}" />
 			        </p:column>
@@ -152,17 +152,17 @@
 							<p:outputLabel value="Departamento:" style="font-weight: bold"/>
 							<p:inplace id="departamentoInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" label="#{equipamentoMBean.equipamento.departamento.nome}">
 						      <p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
-								<h:selectOneMenu id="departamento" value="#{equipamentoMBean.equipamento.departamento.codigo}">
+								<p:selectOneMenu id="departamento" value="#{equipamentoMBean.equipamento.departamento.codigo}">
 									<f:selectItems value="#{selectOneMenuMBean.listaDepartamentos}"/>
-								</h:selectOneMenu>
+								</p:selectOneMenu>
 							</p:inplace>
 							
 						   <p:outputLabel value="Entidade:" style="font-weight: bold"/>
 							<p:inplace id="entidadeInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" label="#{equipamentoMBean.equipamento.entidade.label}">
 						      <p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
-								<h:selectOneMenu id="entidade" value="#{equipamentoMBean.equipamento.entidade}">
+								<p:selectOneMenu id="entidade" value="#{equipamentoMBean.equipamento.entidade}">
 									<f:selectItems value="#{selectOneMenuMBean.tipoEntidadeLabels}"/>
-								</h:selectOneMenu>
+								</p:selectOneMenu>
 							</p:inplace>
 							
 						   <p:outputLabel value="Funcionário:" style="font-weight: bold"/>
@@ -240,7 +240,7 @@
 						   <p:outputLabel value="Observação:" style="font-weight: bold"/>
 						   <p:inplace id="observacaoInplace" editor="true" cancelLabel="Cancelar alteração" saveLabel="Salvar alteração" emptyLabel="Informe uma observação" >
 						   	<p:ajax event="save" listener="#{equipamentoMBean.salvar}" update=":form01Id:dataTable01Id,:form02Id:panel2"></p:ajax>
-						   	<p:inputTextarea value="#{equipamentoMBean.equipamento.observacao}" style="width:415px;height:50px;" cols="500" rows="234" autoResize="true" />
+						   	<p:inputTextarea value="#{equipamentoMBean.equipamento.observacao}" style="width:100%; height:20%;" />
 						   </p:inplace>
 						   
 					   </p:panelGrid>

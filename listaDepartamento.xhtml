@@ -32,7 +32,7 @@
        				rowKey="#{departamento.codigo}" 
        				reflow="true">
 					
-					<p:column id="nomeColumnId" headerText="Nome:"
+					<p:column id="nomeColumnId" headerText="Nome"
 						filterBy="#{departamento.nome}" sortBy="#{departamento.nome}"
 						style="text-align:left">
 						<p:outputLabel value="#{departamento.nome}" />
@@ -46,7 +46,7 @@
 					</p:column>
 					
 					<p:column id="opcoesColumnId" headerText="Opções:"
-						style="text-align:left">
+						style="text-align:left" >
 						
 						<p:commandButton id="selectButtonId"
 							update=":form02Id:display01Id"

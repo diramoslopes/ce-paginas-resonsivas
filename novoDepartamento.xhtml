@@ -22,13 +22,13 @@
 								styleClass="panelgrid-noborder">
 						
 							<p:outputLabel value="Nome:" for="nome" style="font-weight: bold"/>
-							<p:inputText id="nome" value="#{departamentoMBean.departamento.nome}" required="true" requiredMessage="O campo nome é obrigatório" validatorMessage="O nome do departamento deve ter entre 2 e 60 caractéres"
+							<p:inputText id="nome" value="#{departamentoMBean.departamento.nome}" required="true" requiredMessage="Nome é obrigatório." validatorMessage="O nome do departamento deve ter entre 2 e 60 caractéres"
 													style="width:80%">
 								<f:validateLength minimum="2" maximum="60"/>
 							</p:inputText>
 							
 							<p:outputLabel value="Andar:" for="andar" style="font-weight: bold"/>
-							<p:selectOneMenu id="andar" value="#{departamentoMBean.departamento.andar}" required="true" requiredMessage="É necessário selecionar um andar" style="width:80%">
+							<p:selectOneMenu id="andar" value="#{departamentoMBean.departamento.andar}" required="true" requiredMessage="Selecione um andar." style="width:80%">
 								<f:selectItem itemLabel="" itemValue="" />
 								<f:selectItems value="#{selectOneMenuMBean.tipoAndarLabels}"/>
 							</p:selectOneMenu>
