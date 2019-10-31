@@ -31,7 +31,7 @@
 	   	  			</p:toolbarGroup>
 				
 					<p:toolbarGroup align="right">
-						<p:commandButton value="Novo equipamento" action="#{equipamentoMBean.novo()}"/>
+						<p:commandButton value="Novo equipamento" action="#{equipamentoMBean.novo}"/>
 					</p:toolbarGroup>
 					
 				</p:toolbar>
@@ -111,7 +111,7 @@
 			        
 			        <p:column headerText="Status:" id="statusColumnId" filterBy="#{equipamento.status.label}" sortBy="#{equipamento.status.label}" 
 			        		styleClass="primeiraClass" style="text-align:left" priority="6">
-			           <p:outputLabel value="#{equipamento.status.label}" style="text-align:right" />
+			           <h:outputText value="#{equipamento.status.label}" />
 			        </p:column>
 			        
 			        <p:column id="opcoesColumnId" headerText="Opções:" styleClass="primeiraClass" style="text-align:left" exportable="false" priority="3">
